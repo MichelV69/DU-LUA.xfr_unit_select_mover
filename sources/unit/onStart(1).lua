@@ -26,6 +26,9 @@ for i = 1, #Slotlist, 1 do
     table.insert(LightList, thisSlot)
   end
 
+  if thisSlot.getClass() == "IndustryUnit" then
+    table.insert(XFRUList, thisSlot)
+  end
 end
 
 local thingName = "Screens"
