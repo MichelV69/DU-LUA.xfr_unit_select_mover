@@ -2,16 +2,16 @@
 --- core application functions
 --- "Michel Vaillancourt <902pe_gaming@wolfstar.ca>"
 
-function isUnitAvailable(thisXFRU)
-  local isUnitAvailable = true
+function IsUnitAvailable(thisXFRU)
+  local IsUnitAvailable = true
   local stateCode = thisXFRU.getState()
   if IndustryStateCode[stateCode].alt == "Jammed" then
-    isUnitAvailable = false
+    IsUnitAvailable = false
   end
-  return isUnitAvailable
-end --- isUnitAvailable
+  return IsUnitAvailable
+end --- IsUnitAvailable
 
-function configXFRU(thisXFRU)
+function ConfigXFRU(thisXFRU)
   thisXFRU.stop(false, false)
   local currentJobTable = thisXFRU.getInfo()
   local next_work_id = 0
@@ -22,7 +22,7 @@ function configXFRU(thisXFRU)
     system.print(WS2_Software.id .. "DEBUG: [" .. #currentJobTable .. "]")
     system.print(WS2_Software.id .. "DEBUG: [" .. #currentProductTable .. "]")
     currentProductID = currentProductTable[1].id
-    next_work_id = getNextWorkID(currentProductID)
+    next_work_id = GetNextWorkID(currentProductID)
   else
     next_work_id = RawMaterials.data[1].ore_id
   end
@@ -38,14 +38,21 @@ function configXFRU(thisXFRU)
 
   thisXFRU.setOutput(next_work_id)
   thisXFRU.startMaintain(roundDownToPrecision(averageContainerLitres * (PercentStoragePerItem/100)))
-end --- function configXFRU
+end --- function ConfigXFRU
 
-function getNextWorkID(currentProductID)
+function GetNextWorkID(currentProductID)
   local next_work_id = 0
-  local currentOre = RawMaterials.findByOreID(currentProductID)
+  local filteredRawMaterialsTable = RawMaterials
+  for i = 1, #filteredRawMaterialsTable.data, 1 do
+    table.remove(filteredRawMaterialsTable.data)
+  end
+
+  filteredRawMaterialsTable.data = GetFilteredRawMaterialTable()
+
+  local currentOre = filteredRawMaterialsTable:findByOreID(currentProductID)
   local currentPure = ""
-  if currentOre == RawMaterials.errorNotFound then
-    currentPure = RawMaterials.findByPureID(currentProductID)
+  if currentOre == filteredRawMaterialsTable.errorNotFound then
+    currentPure = filteredRawMaterialsTable:findByPureID(currentProductID)
   end
 
   local next_work_id = 0
@@ -57,11 +64,25 @@ function getNextWorkID(currentProductID)
     -- we are working on a Pure material
     -- find the *next* record in the data set, and get that ore_id
     thisIndex = currentOre.index
-    nextRecord = RawMaterials.data[thisIndex + 1]
+    nextRecord = filteredRawMaterialsTable.data[thisIndex + 1]
     next_work_id = nextRecord.ore_id
   end
 
   return next_work_id
-end --- function getNextWorkID
+end --- function GetNextWorkID
+
+function GetFilteredRawMaterialTable()
+  local filteredRawMaterialTable = {}
+  if not (ProcessT1 or ProcessT2) then
+    for pureName in string.gmatch(OnlyMove, "([^,]+),%s*") do
+      local rawMaterialData = RawMaterials:findByPureName(pureName)
+      table.insert(filteredRawMaterialTable, rawMaterialData.record)
+  end
+  else 
+    -- get materials by tier
+  end
+
+  return filteredRawMaterialTable
+end --- function GetFilteredRawMaterialTable()
 
 --- eof ---

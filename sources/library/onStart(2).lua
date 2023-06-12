@@ -92,7 +92,7 @@ function RawMaterials:findByOreName(oreName)
   return rawMaterialData
 end
 
-function RawMaterials:findByPureNamefunction(pureName)
+function RawMaterials:findByPureName(pureName)
   local rawMaterialData = {RawMaterialsself.errorNotFound}
   for index, record in next, RawMaterials do
     if record.pure == pureName then

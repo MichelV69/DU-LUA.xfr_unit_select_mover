@@ -1,19 +1,19 @@
 --- unit.OnStart(1)
 --- user configuration options
-ProcessT1 = false --export "Should the XFRU move ALL T1 Ores and Pures?"
-ProcessT2 = false --export "Should the XFRU move ALL T2 Ores and Pures?"
-OnlyMove = "Copper,Calcium" --export "Comma delimited list of Pures to move. The corresponding Ores will also be moved."
-PercentStoragePerItem = 1 --export "percentage of available liters in connected containers"
+ProcessT1             = false --export "Should the XFRU move ALL T1 Ores and Pures?"
+ProcessT2             = false --export "Should the XFRU move ALL T2 Ores and Pures?"
+OnlyMove              = "Copper,Calcium" --export "Comma delimited list of Pures to move. The corresponding Ores will also be moved."
+PercentStoragePerItem = 1   --export "percentage of available liters in connected containers"
 
 --- environment / globals
-TimerList            = {}
-Slotlist             = { slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10 }
-ScreenList           = {}
-LightList            = {}
-XFRUList             = {}
-ContainerList        = {}
+TimerList             = {}
+Slotlist              = { slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10 }
+ScreenList            = {}
+LightList             = {}
+XFRUList              = {}
+ContainerList         = {}
 
-local isConfigError  = false
+local isConfigError   = false
 --- sanity / configuration check
 for i = 1, #Slotlist, 1 do
   local thisSlot = Slotlist[i]
@@ -34,7 +34,6 @@ for i = 1, #Slotlist, 1 do
   if thisSlot.getClass() == "ContainerXLGroup" then
     table.insert(ContainerList, thisSlot)
   end
-  
 end
 
 local thingName = "Screens"
@@ -79,10 +78,10 @@ for i = 1, #LightList, 1 do
 end
 
 --- start running condition
---- --- n/a 
+--- --- n/a
 
 --- start timers required
-TimerList[1] = {name = WS2_Software.id, cycle_seconds = 6}
+TimerList[1] = { name = WS2_Software.id, cycle_seconds = 6 }
 for i = 1, #TimerList, 1 do
   unit.setTimer(TimerList[i].name, TimerList[i].cycle_seconds)
 end
