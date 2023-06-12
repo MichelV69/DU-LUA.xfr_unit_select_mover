@@ -3,6 +3,7 @@
 ProcessT1 = false --export "Should the XFRU move ALL T1 Ores and Pures?"
 ProcessT2 = false --export "Should the XFRU move ALL T2 Ores and Pures?"
 OnlyMove = "Copper,Calcium" --export "Comma delimited list of Pures to move. The corresponding Ores will also be moved."
+PercentStoragePerItem = 1 --export "percentage of available liters in connected containers"
 
 --- environment / globals
 TimerList            = {}
@@ -29,6 +30,11 @@ for i = 1, #Slotlist, 1 do
   if thisSlot.getClass() == "IndustryUnit" then
     table.insert(XFRUList, thisSlot)
   end
+
+  if thisSlot.getClass() == "ContainerXLGroup" then
+    table.insert(ContainerList, thisSlot)
+  end
+  
 end
 
 local thingName = "Screens"
@@ -44,7 +50,7 @@ if #XFRUList == 0 then
   error("No " .. thingName .. " connected.  Cannot continue.")
   isConfigError = true
 else
-  system.print(WS2_Software.id .. ": found [" .. #XFRUList .. "] connected " .. thingName .. "s.")
+  system.print(WS2_Software.id .. ": found [" .. #XFRUList .. "] connected " .. thingName .. ".")
 end
 
 thingName = "Containers"
@@ -78,7 +84,7 @@ end
 --- start timers required
 TimerList[1] = {name = WS2_Software.id, cycle_seconds = 6}
 for i = 1, #TimerList, 1 do
-  unit.startTimer(TimerList[i].name, TimerList[i].cycle_seconds)
+  unit.setTimer(TimerList[i].name, TimerList[i].cycle_seconds)
 end
 
 --- wrap up when done here.

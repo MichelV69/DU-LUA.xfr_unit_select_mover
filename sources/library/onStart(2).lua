@@ -60,7 +60,7 @@ table.insert(RawMaterials.data, { tier = 2, ore_id = 3086347393, ore = "Limeston
 table.insert(RawMaterials.data, { tier = 2, ore_id = 2289641763, ore = "Malachite", pure_id = 1466453887, pure = "Copper" })
 
 function RawMaterials:findByPureID(pure_id)
-  local rawMaterialData = {self.errorNotFound}
+  local rawMaterialData = {RawMaterials.errorNotFound}
   for index, record in next, RawMaterials do
     if record == pure_id then
       rawMaterialData = {index, record}
@@ -71,7 +71,7 @@ function RawMaterials:findByPureID(pure_id)
 end
 
 function RawMaterials:findByOreID(ore_id)
-  local rawMaterialData = {self.errorNotFound}
+  local rawMaterialData = {RawMaterials.errorNotFound}
   for index, record in next, RawMaterials do
     if record == ore_id then
       rawMaterialData = {index, record}
@@ -82,7 +82,7 @@ function RawMaterials:findByOreID(ore_id)
 end
 
 function RawMaterials:findByOreName(oreName)
-  local rawMaterialData = {self.errorNotFound}
+  local rawMaterialData = {RawMaterials.errorNotFound}
   for index, record in next, RawMaterials do
     if record == oreName then
       rawMaterialData = {index, record}
@@ -93,7 +93,7 @@ function RawMaterials:findByOreName(oreName)
 end
 
 function RawMaterials:findByPureNamefunction(pureName)
-  local rawMaterialData = {self.errorNotFound}
+  local rawMaterialData = {RawMaterialsself.errorNotFound}
   for index, record in next, RawMaterials do
     if record.pure == pureName then
       rawMaterialData = {index, record}
