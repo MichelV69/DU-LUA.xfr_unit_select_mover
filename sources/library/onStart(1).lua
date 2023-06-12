@@ -53,13 +53,13 @@ RawMaterials               = {}
 RawMaterials.errorNotFound = "((not found))"
 
 RawMaterials.data = {}
-RawMaterials.data[1]         = { tier = 1, ore_id = 262147665, ore = "Bauxite",   pure_id = 2240749601, pure = "Aluminium" }
-RawMaterials.data[2]         = { tier = 1, ore_id = 299255727, ore = "Coal",      pure_id = 159858782, pure = "Carbon" }
-RawMaterials.data[3]         = { tier = 1, ore_id = 4234772167, ore = "Hematite", pure_id = 198782496, pure = "Iron" }
-RawMaterials.data[4]         = { tier = 1, ore_id = 3724036288, ore = "Quartz",   pure_id = 2589986891, pure = "Silicon" }
+table.insert(RawMaterials.data, { tier = 1, ore_id = 262147665, ore = "Bauxite",   pure_id = 2240749601, pure = "Aluminium" })
+table.insert(RawMaterials.data, { tier = 1, ore_id = 299255727, ore = "Coal",      pure_id = 159858782, pure = "Carbon" })
+table.insert(RawMaterials.data, { tier = 1, ore_id = 4234772167, ore = "Hematite", pure_id = 198782496, pure = "Iron" })
+table.insert(RawMaterials.data, { tier = 1, ore_id = 3724036288, ore = "Quartz",   pure_id = 2589986891, pure = "Silicon" })
 
-RawMaterials.data[5]         = {  tier = 2, ore_id = 3086347393, ore = "Limestone", pure_id = 2112763718, pure = "Calcium" }
-RawMaterials.data[6]         = {  tier = 2, ore_id = 2289641763, ore = "Malachite", pure_id = 1466453887, pure = "Copper" }
+table.insert(RawMaterials.data, { tier = 2, ore_id = 3086347393, ore = "Limestone", pure_id = 2112763718, pure = "Calcium" })
+table.insert(RawMaterials.data, { tier = 2, ore_id = 2289641763, ore = "Malachite", pure_id = 1466453887, pure = "Copper" })
 
 function RawMaterials:findByPureID(pure_id)
   local rawMaterialData = {self.errorNotFound}
