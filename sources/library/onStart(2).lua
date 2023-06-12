@@ -48,61 +48,19 @@ IndustryStateCode[7]       = { nq = "Jammed missing schematics", alt = "Jammed",
 
 --- Ores and Pures
 RawMaterials               = {}
+RawMaterials.data          = {}
+
+table.insert(RawMaterials.data,
+  { tier = 1, ore_id = 262147665, ore = "Bauxite", pure_id = 2240749601, pure = "Aluminium" })
+table.insert(RawMaterials.data, { tier = 1, ore_id = 299255727, ore = "Coal", pure_id = 159858782, pure = "Carbon" })
+table.insert(RawMaterials.data, { tier = 1, ore_id = 4234772167, ore = "Hematite", pure_id = 198782496, pure = "Iron" })
+table.insert(RawMaterials.data, { tier = 1, ore_id = 3724036288, ore = "Quartz", pure_id = 2589986891, pure = "Silicon" })
+
+table.insert(RawMaterials.data,
+  { tier = 2, ore_id = 3086347393, ore = "Limestone", pure_id = 2112763718, pure = "Calcium" })
+table.insert(RawMaterials.data,
+  { tier = 2, ore_id = 2289641763, ore = "Malachite", pure_id = 1466453887, pure = "Copper" })
+
 RawMaterials.errorNotFound = { tier = 0, ore_id = -1, ore = "((not found))", pure_id = -1, pure = "((not found))" }
 
-RawMaterials.data = {}
-table.insert(RawMaterials.data, { tier = 1, ore_id = 262147665, ore = "Bauxite",   pure_id = 2240749601, pure = "Aluminium" })
-table.insert(RawMaterials.data, { tier = 1, ore_id = 299255727, ore = "Coal",      pure_id = 159858782, pure = "Carbon" })
-table.insert(RawMaterials.data, { tier = 1, ore_id = 4234772167, ore = "Hematite", pure_id = 198782496, pure = "Iron" })
-table.insert(RawMaterials.data, { tier = 1, ore_id = 3724036288, ore = "Quartz",   pure_id = 2589986891, pure = "Silicon" })
-
-table.insert(RawMaterials.data, { tier = 2, ore_id = 3086347393, ore = "Limestone", pure_id = 2112763718, pure = "Calcium" })
-table.insert(RawMaterials.data, { tier = 2, ore_id = 2289641763, ore = "Malachite", pure_id = 1466453887, pure = "Copper" })
-
-function RawMaterials:findByPureID(pure_id)
-  local rawMaterialData = {1, RawMaterials.errorNotFound}
-  for index, record in next, RawMaterials.data do
-    if record.pure_id == pure_id then
-      rawMaterialData = {index, record}
-    end
-  end
-
-  return rawMaterialData
-end
-
-function RawMaterials:findByOreID(ore_id)
-  local rawMaterialData = {1, RawMaterials.errorNotFound}
-  for index, record in next, RawMaterials.data do
-    if record.ore_id == ore_id then
-      rawMaterialData = {index, record}
-    end
-  end
-
-  return rawMaterialData
-end
-
-function RawMaterials:findByOreName(oreName)
-  local rawMaterialData = {1, RawMaterials.errorNotFound}
-  for index, record in next, RawMaterials.data do
-    if record.ore == oreName then
-      rawMaterialData = {index, record}
-    end
-  end
-
-  return rawMaterialData
-end
-
-function RawMaterials:findByPureName(pureName)
-  system.print(WS2_Software.id ..  ":DEBUG:findByPureName looking for [" .. pureName .. "]")
-
-  local rawMaterialData = {1, RawMaterials.errorNotFound}
-  for index, record in next, RawMaterials.data do
-    system.print(WS2_Software.id ..  ":DEBUG:findByPureName found [" .. record.pure .. "]")
-    if record.pure == pureName then
-      rawMaterialData = {index, record}
-    end
-  end
-
-  return rawMaterialData
-end
 --- eof ---

@@ -1,9 +1,9 @@
 --- unit.OnStart(1)
 --- user configuration options
-ProcessT1             = false --export "Should the XFRU move ALL T1 Ores and Pures?"
-ProcessT2             = false --export "Should the XFRU move ALL T2 Ores and Pures?"
+ProcessT1             = false            --export "Should the XFRU move ALL T1 Ores and Pures?"
+ProcessT2             = false            --export "Should the XFRU move ALL T2 Ores and Pures?"
 OnlyMove              = "Copper,Calcium" --export "Comma delimited list of Pures to move. The corresponding Ores will also be moved."
-PercentStoragePerItem = 1   --export "percentage of available liters in connected containers"
+PercentStoragePerItem = 1                --export "percentage of available liters in connected containers"
 
 --- environment / globals
 TimerList             = {}
