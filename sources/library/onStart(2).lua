@@ -48,7 +48,7 @@ IndustryStateCode[7]       = { nq = "Jammed missing schematics", alt = "Jammed",
 
 --- Ores and Pures
 RawMaterials               = {}
-RawMaterials.errorNotFound = "((not found))"
+RawMaterials.errorNotFound = { tier = 0, ore_id = -1, ore = "((not found))", pure_id = -1, pure = "((not found))" }
 
 RawMaterials.data = {}
 table.insert(RawMaterials.data, { tier = 1, ore_id = 262147665, ore = "Bauxite",   pure_id = 2240749601, pure = "Aluminium" })
@@ -60,9 +60,9 @@ table.insert(RawMaterials.data, { tier = 2, ore_id = 3086347393, ore = "Limeston
 table.insert(RawMaterials.data, { tier = 2, ore_id = 2289641763, ore = "Malachite", pure_id = 1466453887, pure = "Copper" })
 
 function RawMaterials:findByPureID(pure_id)
-  local rawMaterialData = {RawMaterials.errorNotFound}
-  for index, record in next, RawMaterials do
-    if record == pure_id then
+  local rawMaterialData = {1, RawMaterials.errorNotFound}
+  for index, record in next, RawMaterials.data do
+    if record.pure_id == pure_id then
       rawMaterialData = {index, record}
     end
   end
@@ -71,9 +71,9 @@ function RawMaterials:findByPureID(pure_id)
 end
 
 function RawMaterials:findByOreID(ore_id)
-  local rawMaterialData = {RawMaterials.errorNotFound}
-  for index, record in next, RawMaterials do
-    if record == ore_id then
+  local rawMaterialData = {1, RawMaterials.errorNotFound}
+  for index, record in next, RawMaterials.data do
+    if record.ore_id == ore_id then
       rawMaterialData = {index, record}
     end
   end
@@ -82,9 +82,9 @@ function RawMaterials:findByOreID(ore_id)
 end
 
 function RawMaterials:findByOreName(oreName)
-  local rawMaterialData = {RawMaterials.errorNotFound}
-  for index, record in next, RawMaterials do
-    if record == oreName then
+  local rawMaterialData = {1, RawMaterials.errorNotFound}
+  for index, record in next, RawMaterials.data do
+    if record.ore == oreName then
       rawMaterialData = {index, record}
     end
   end
@@ -93,8 +93,11 @@ function RawMaterials:findByOreName(oreName)
 end
 
 function RawMaterials:findByPureName(pureName)
-  local rawMaterialData = {RawMaterialsself.errorNotFound}
-  for index, record in next, RawMaterials do
+  system.print(WS2_Software.id ..  ":DEBUG:findByPureName looking for [" .. pureName .. "]")
+
+  local rawMaterialData = {1, RawMaterials.errorNotFound}
+  for index, record in next, RawMaterials.data do
+    system.print(WS2_Software.id ..  ":DEBUG:findByPureName found [" .. record.pure .. "]")
     if record.pure == pureName then
       rawMaterialData = {index, record}
     end

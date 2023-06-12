@@ -24,7 +24,7 @@ function ConfigXFRU(thisXFRU)
     currentProductID = currentProductTable[1].id
     next_work_id = GetNextWorkID(currentProductID)
   else
-    next_work_id = RawMaterials.data[1].ore_id
+    next_work_id = GetNextWorkID(-1) --- RawMaterials.data[1].ore_id
   end
 
   local totalContainerSpace = 0
@@ -48,6 +48,11 @@ function GetNextWorkID(currentProductID)
   end
 
   filteredRawMaterialsTable.data = GetFilteredRawMaterialTable()
+  system.print(WS2_Software.id .. "DEBUG: #filteredRawMaterialsTable [" .. #filteredRawMaterialsTable.data .. "]")
+  
+  if currentProductID == -1 then
+    return filteredRawMaterialsTable.data[1].ore_id
+  end
 
   local currentOre = filteredRawMaterialsTable:findByOreID(currentProductID)
   local currentPure = ""
@@ -74,9 +79,14 @@ end --- function GetNextWorkID
 function GetFilteredRawMaterialTable()
   local filteredRawMaterialTable = {}
   if not (ProcessT1 or ProcessT2) then
-    for pureName in string.gmatch(OnlyMove, "([^,]+),%s*") do
+    local sep = ","
+    for pureName in string.gmatch(OnlyMove, "([^"..sep.."]+)") do
+      system.print(WS2_Software.id .. "DEBUG: looking for [" .. pureName .. "]")
       local rawMaterialData = RawMaterials:findByPureName(pureName)
-      table.insert(filteredRawMaterialTable, rawMaterialData.record)
+      
+      system.print(WS2_Software.id .. "DEBUG: found [" .. rawMaterialData[2].pure .. "]")
+      table.insert(filteredRawMaterialTable, rawMaterialData)
+      system.print(WS2_Software.id .. "*")
   end
   else 
     -- get materials by tier

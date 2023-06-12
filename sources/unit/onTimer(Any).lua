@@ -4,8 +4,8 @@
 if tag == TimerList[1].name then
   for i = 1, #XFRUList, 1 do
     local thisXFRU = XFRUList[i]
-    if isUnitAvailable(thisXFRU) then
-      configXFRU(thisXFRU)
+    if IsUnitAvailable(thisXFRU) then
+      ConfigXFRU(thisXFRU)
     end
   end
 end
