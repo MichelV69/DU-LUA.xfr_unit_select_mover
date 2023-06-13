@@ -7,7 +7,7 @@ WS2_Software.id       = "xfr_unit_select_mover"
 WS2_Software.title    = "XFR Unit Select Mover"
 WS2_Software.version  = "0.0.1"
 WS2_Software.created  = "11 Jun 2023 21h05 AST"
-WS2_Software.revision = "12 Jun 2023 17h58 AST"
+WS2_Software.revision = "12 Jun 2023 21h02 AST"
 WS2_Software.author   = "Michel Vaillancourt <902pe_gaming@wolfstar.ca>"
 
 ---
